@@ -74,3 +74,28 @@ body {
   transform: translateY(-6px);
   background-color: #2e2e2e;
 }
+.footer {
+  background-color: #111111;
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid #333333;
+}
+
+.footer-links {
+  margin: 16px 0;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 12px;
+}
+
+.footer-links a:hover {
+  color: #e63946;
+}
+
+.copyright {
+  color: #888888;
+  font-size: 14px;
+}
