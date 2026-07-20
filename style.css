@@ -66,3 +66,11 @@ body {
   color: #e63946;
   margin-bottom: 10px;
 }
+.plugin-card {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.plugin-card:hover {
+  transform: translateY(-6px);
+  background-color: #2e2e2e;
+}
