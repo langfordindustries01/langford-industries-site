@@ -60,7 +60,12 @@ body {
   background-color: #262626;
   border-radius: 12px;
   padding: 30px;
+  /* ...your existing card styles... */
+  text-decoration: none;   /* no underline */
+  color: inherit;          /* keep your white text, not link-blue */
+  display: block;          /* behave as a full box */
 }
+
 
 .plugin-card h3 {
   color: #e63946;
@@ -73,7 +78,13 @@ body {
 .plugin-card:hover {
   transform: translateY(-6px);
   background-color: #2e2e2e;
+  
 }
+.plugin-card:focus-visible {
+  outline: 2px solid #e63946;   /* brand red focus ring, keyboard nav only */
+  outline-offset: 2px;          /* small gap between card and ring */
+}
+
 .footer {
   background-color: #111111;
   text-align: center;
