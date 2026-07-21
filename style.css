@@ -15,18 +15,9 @@ body {
   text-align: center;
   padding: 20px;
 }
-  /* --- the hero magic --- */
-  min-height: 100vh;          /* make body as tall as the screen */
-  margin: 0;                  /* kill the browser's default edge gap */
-  display: flex;              /* turn body into a flex container */
-  flex-direction: column;     /* stack children top-to-bottom */
-  justify-content: center;    /* center them vertically */
-  align-items: center;        /* center them horizontally */
-  text-align: center;         /* center the text inside each line */
-}
 .button {
   display: inline-block;          /* lets it take padding like a box */
-  background-color: #e63939;      /* your brand red */
+  background-color: #e63946;      /* your brand red */
   color: #ffffff;                 /* white text */
   text-decoration: none;          /* removes the underline */
   padding: 14px 28px;             /* height (top/bottom) + width (left/right) */
@@ -80,11 +71,6 @@ body {
   background-color: #2e2e2e;
   
 }
-.plugin-card:focus-visible {
-  outline: 2px solid #e63946;   /* brand red focus ring, keyboard nav only */
-  outline-offset: 2px;          /* small gap between card and ring */
-}
-
 .footer {
   background-color: #111111;
   text-align: center;
