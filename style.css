@@ -71,6 +71,10 @@ body {
   background-color: #2e2e2e;
   
 }
+.plugin-card:focus-visible {
+  outline: 2px solid #e63946;   /* brand red focus ring, keyboard nav only */
+  outline-offset: 2px;          /* small gap between card and ring */
+}
 .footer {
   background-color: #111111;
   text-align: center;
