@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Mistress — Langford Industries</title>
+<style>
+  /* ============================================================
+     LangfordIndustries — profile landing page
+     Concept: amplifier faceplate / chassis
+     ============================================================ */
+
+  .li-root {
+    /* --- palette: light (brushed aluminium panel) --- */
+    --chassis:    #16130F;  /* warm graphite */
+    --panel:      #DEDAD2;  /* brushed aluminium */
+    --panel-2:    #CFCAC0;  /* recessed panel */
+    --ink:        #16130F;
+    --ink-soft:   #4A443B;
+    --legend:     #7C7669;  /* silkscreen grey */
+    --rule:       rgba(22, 19, 15, 0.18);
+    --accent:     #6E2028;  /* oxblood — accent that holds on light ground */
+    --glow:       #C57A18;  /* valve amber, darkened for light ground */
+    --glow-raw:   #E39A2B;  /* true valve amber, graphics only */
+    --plate:      #E7E3DC;
+    --plate-edge: rgba(22, 19, 15, 0.22);
+    --shadow:     rgba(22, 19, 15, 0.16);
+
+    /* black knobs on an aluminium plate — the classic amp pairing */
+    --knob-face:  #2A2520;
+    --knob-hi:    #4A4238;
+    --knob-lo:    #191510;
+    --knob-edge:  rgba(22, 19, 15, 0.55);
+    --knob-mark:  #E7E3DC;
+
+    --brush: repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.00) 0px,
+      rgba(255,255,255,0.35) 1px,
+      rgba(0,0,0,0.03)      2px,
+      rgba(255,255,255,0.00) 3px
+    );
+
+    --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-legend: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --step-0: 1rem;
+    --step-1: 1.125rem;
+    --step-2: clamp(1.25rem, 0.9rem + 1.2vw, 1.6rem);
+    --step-3: clamp(1.6rem, 1.1rem + 2.2vw, 2.4rem);
+    --step-4: clamp(2.2rem, 1.2rem + 4.6vw, 4.4rem);
+
+    background: var(--panel);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- palette: dark (chassis interior, valves lit) --- */
+  @media (prefers-color-scheme: dark) {
+    .li-root {
+      --panel:      #16130F;
+      --panel-2:    #1E1A15;
+      --ink:        #E4E0D7;
+      --ink-soft:   #A8A196;
+      --legend:     #8A8478;
+      --rule:       rgba(228, 224, 215, 0.16);
+      --accent:     #E8A33D;  /* amber reads as the accent once the ground is dark */
+      --glow:       #E8A33D;
+      --glow-raw:   #E8A33D;
+      --plate:      #221D18;
+      --plate-edge: rgba(228, 224, 215, 0.14);
+      --shadow:     rgba(0, 0, 0, 0.5);
+      --knob-face:  #322B24;
+      --knob-hi:    #554A3E;
+      --knob-lo:    #1E1913;
+      --knob-edge:  rgba(228, 224, 215, 0.22);
+      --knob-mark:  #E4E0D7;
+      --brush: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.00) 0px,
+        rgba(255,255,255,0.05) 1px,
+        rgba(0,0,0,0.10)      2px,
+        rgba(255,255,255,0.00) 3px
+      );
+    }
+  }
+
+  /* explicit overrides must beat the media query in both directions */
+  :root[data-theme="dark"] .li-root,
+  [data-theme="dark"] .li-root {
+    --panel:      #16130F;
+    --panel-2:    #1E1A15;
+    --ink:        #E4E0D7;
+    --ink-soft:   #A8A196;
+    --legend:     #8A8478;
+    --rule:       rgba(228, 224, 215, 0.16);
+    --accent:     #E8A33D;
+    --glow:       #E8A33D;
+    --glow-raw:   #E8A33D;
+    --plate:      #221D18;
+    --plate-edge: rgba(228, 224, 215, 0.14);
+    --shadow:     rgba(0, 0, 0, 0.5);
+    --knob-face:  #322B24;
+    --knob-hi:    #554A3E;
+    --knob-lo:    #1E1913;
+    --knob-edge:  rgba(228, 224, 215, 0.22);
+    --knob-mark:  #E4E0D7;
+    --brush: repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.00) 0px,
+      rgba(255,255,255,0.05) 1px,
+      rgba(0,0,0,0.10)      2px,
+      rgba(255,255,255,0.00) 3px
+    );
+  }
+  :root[data-theme="light"] .li-root,
+  [data-theme="light"] .li-root {
+    --panel:      #DEDAD2;
+    --panel-2:    #CFCAC0;
+    --ink:        #16130F;
+    --ink-soft:   #4A443B;
+    --legend:     #7C7669;
+    --rule:       rgba(22, 19, 15, 0.18);
+    --accent:     #6E2028;
+    --glow:       #C57A18;
+    --glow-raw:   #E39A2B;
+    --plate:      #E7E3DC;
+    --plate-edge: rgba(22, 19, 15, 0.22);
+    --shadow:     rgba(22, 19, 15, 0.16);
+    --knob-face:  #2A2520;
+    --knob-hi:    #4A4238;
+    --knob-lo:    #191510;
+    --knob-edge:  rgba(22, 19, 15, 0.55);
+    --knob-mark:  #E7E3DC;
+    --brush: repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.00) 0px,
+      rgba(255,255,255,0.35) 1px,
+      rgba(0,0,0,0.03)      2px,
+      rgba(255,255,255,0.00) 3px
+    );
+  }
+
+  .li-root *,
+  .li-root *::before,
+  .li-root *::after { box-sizing: border-box; }
+
+  .li-root img { max-width: 100%; display: block; }
+
+  .li-root a { color: inherit; }
+
+  .li-root :focus-visible {
+    outline: 2px solid var(--glow-raw);
+    outline-offset: 3px;
+  }
+
+  /* ---------- shared type roles ---------- */
+
+  .li-legend {
+    font-family: var(--font-legend);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--legend);
+    margin: 0;
+  }
+
+  .li-h {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .li-body {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- chassis shell ---------- */
+
+  .li-unit {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .li-rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ---------- hero: the faceplate ---------- */
+
+  .li-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--panel-2);
+    background-image: var(--brush);
+    background-size: 3px 100%;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* valve glow bleeding from behind the chassis */
+  .li-hero::before {
+    content: "";
+    position: absolute;
+    inset: auto -20% -60% -20%;
+    height: 90%;
+    background: radial-gradient(
+      ellipse at 50% 100%,
+      color-mix(in srgb, var(--glow-raw) 42%, transparent) 0%,
+      transparent 68%
+    );
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .li-hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: center;
+    padding-block: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  /* two-up faceplate once there's room for the control panel beside the type */
+  @media (min-width: 62rem) {
+    .li-hero-inner {
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    }
+  }
+
+  .li-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 0;
+  }
+
+  /* ---------- the control panel ---------- */
+
+  .li-panel {
+    background: var(--plate);
+    background-image: var(--brush);
+    background-size: 3px 100%;
+    border: 1px solid var(--plate-edge);
+    border-radius: 3px;
+    padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 2.5vw, 1.75rem);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.22) inset,
+                0 14px 36px -20px var(--shadow);
+    min-width: 0;
+    /* stacked under the copy, the plate shouldn't stretch the knobs apart */
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  @media (min-width: 62rem) {
+    .li-panel { max-width: none; }
+  }
+
+  .li-knobs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 1.75rem) clamp(0.5rem, 2vw, 1.25rem);
+  }
+
+  .li-knob {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    min-width: 0;
+  }
+
+  .li-dial {
+    width: clamp(3rem, 6vw, 4.5rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: relative;
+    background:
+      radial-gradient(circle at 50% 34%, rgba(255,255,255,0.24), transparent 58%),
+      conic-gradient(
+        from 210deg,
+        var(--knob-hi) 0deg,
+        var(--knob-face) 70deg,
+        var(--knob-face) 150deg,
+        var(--knob-lo) 200deg,
+        var(--knob-face) 280deg,
+        var(--knob-hi) 360deg
+      );
+    border: 1px solid var(--knob-edge);
+    box-shadow: 0 2px 6px -1px var(--shadow),
+                0 1px 0 rgba(255,255,255,0.14) inset;
+  }
+
+  /* Only the painted indicator turns — the metal's highlight stays put,
+     because the light source doesn't move when you turn a knob.
+     Origin is the dial's centre: the line runs 8%–42%, so its own centre
+     sits at 25% of the dial, putting the dial centre at 123.53% of the line. */
+  .li-dial::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 8%;
+    width: 2px;
+    height: 34%;
+    margin-left: -1px;
+    border-radius: 1px;
+    background: var(--knob-mark);
+    transform: rotate(var(--a, 0deg));
+    transform-origin: 50% 123.53%;
+  }
+
+  .li-knob-label {
+    font-family: var(--font-legend);
+    font-size: 0.5625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--legend);
+    margin: 0;
+    text-align: center;
+  }
+
+  .li-maker {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .li-maker img {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--plate-edge);
+    object-fit: cover;
+  }
+
+  .li-wordmark {
+    font-size: var(--step-4);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  /* engraved wordmark: cut into the metal */
+  .li-wordmark span {
+    display: block;
+  }
+  .li-wordmark .li-cut {
+    color: transparent;
+    background: linear-gradient(
+      180deg,
+      var(--ink) 0%,
+      var(--ink) 42%,
+      color-mix(in srgb, var(--ink) 72%, transparent) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .li-tagline {
+    font-size: var(--step-2);
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--ink);
+    max-width: 24ch;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .li-tagline em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .li-hero-bio {
+    max-width: 46ch;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ---------- signal chain strip ----------
+     Order is real: this is the actual default chain in The Mistress. */
+
+  .li-chain {
+    background: var(--panel);
+    border-bottom: 1px solid var(--rule);
+    padding-block: 1.75rem;
+  }
+
+  .li-chain-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .li-chain-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 0.5rem;
+  }
+
+  .li-chain-list li {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-legend);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  /* separators are generated, not markup: they carry no meaning */
+  .li-chain-list li + li::before {
+    content: "\203A";
+    color: var(--legend);
+    font-size: 0.75rem;
+    letter-spacing: 0;
+  }
+
+  .li-chain-node {
+    border: 1px solid var(--plate-edge);
+    border-radius: 2px;
+    padding: 0.375rem 0.625rem;
+    background: var(--plate);
+  }
+
+  .li-chain-list li[data-node="amp"] .li-chain-node {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    font-weight: 700;
+  }
+
+  /* ---------- product plate ---------- */
+
+  .li-product {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+    background: var(--panel);
+  }
+
+  .li-plate {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--plate);
+    background-image: var(--brush);
+    background-size: 3px 100%;
+    border: 1px solid var(--plate-edge);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.22) inset, 0 12px 32px -18px var(--shadow);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .li-plate:hover,
+  .li-plate:focus-visible {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--glow-raw) 60%, transparent);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.22) inset, 0 22px 44px -20px var(--shadow);
+  }
+
+  .li-plate-shot {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid var(--plate-edge);
+    background: var(--panel-2);
+  }
+
+  .li-plate-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .li-plate-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+  }
+
+  .li-plate-name {
+    font-size: var(--step-3);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  .li-price {
+    font-family: var(--font-legend);
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    border: 1px solid var(--plate-edge);
+    border-radius: 2px;
+    padding: 0.25rem 0.5rem;
+    background: var(--panel-2);
+  }
+
+  .li-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-legend);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .li-plate:hover .li-cta-arrow {
+    transform: translateX(4px);
+  }
+
+  .li-cta-arrow {
+    transition: transform 180ms ease;
+    display: inline-block;
+  }
+
+  /* ---------- spec grid ---------- */
+
+  .li-specs {
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    background: var(--panel-2);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .li-specs-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .li-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .li-spec {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .li-spec dt {
+    font-family: var(--font-legend);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--legend);
+  }
+
+  .li-spec dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  /* ---------- voices ---------- */
+
+  .li-voices {
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+    background: var(--panel);
+  }
+
+  .li-voices-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .li-voice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .li-voice {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4375rem;
+    padding: 1.125rem;
+    background: var(--plate);
+    border: 1px solid var(--plate-edge);
+    border-radius: 3px;
+  }
+
+  .li-voice-name {
+    font-family: var(--font-legend);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  .li-voice-src {
+    font-family: var(--font-legend);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--legend);
+    margin: 0;
+  }
+
+  .li-voice p:last-child {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ---------- gallery ---------- */
+
+  .li-gallery {
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    background: var(--panel-2);
+    border-top: 1px solid var(--rule);
+  }
+
+  .li-gallery-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .li-shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .li-shots li {
+    margin: 0;
+    border: 1px solid var(--plate-edge);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--plate);
+  }
+
+  .li-shots img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .li-shots figcaption {
+    font-family: var(--font-legend);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--legend);
+    padding: 0.625rem 0.75rem;
+    border-top: 1px solid var(--plate-edge);
+  }
+
+  /* ---------- footer plate ---------- */
+
+  .li-foot {
+    padding-block: clamp(2rem, 5vw, 3rem);
+    background: var(--panel);
+    border-top: 1px solid var(--rule);
+  }
+
+  .li-foot-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .li-foot-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .li-foot-link {
+    font-family: var(--font-legend);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    padding-bottom: 1px;
+  }
+
+  .li-foot-link:hover { border-bottom-color: var(--accent); }
+
+  .li-fineprint {
+    font-size: 0.75rem;
+    line-height: 1.55;
+    color: var(--legend);
+    margin: 0;
+    max-width: 78ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .li-root *,
+    .li-root *::before,
+    .li-root *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="li-root">
+
+  <!-- ============ HERO / FACEPLATE ============ -->
+  <header class="li-hero">
+    <div class="li-unit li-hero-inner">
+
+      <div class="li-hero-copy">
+        <div class="li-maker">
+          <img src="https://public-files.gumroad.com/r599ulfs34bldha4c0qbeild3eho" alt="LangfordIndustries">
+          <p class="li-legend">LangfordIndustries &middot; Brighton, UK</p>
+        </div>
+
+        <h1 class="li-wordmark">
+          <span class="li-cut">Langford</span>
+          <span class="li-cut">Industries</span>
+        </h1>
+
+        <p class="li-tagline">
+          Boutique guitar plugins for players who chase tone &mdash;
+          <em>crafted one knob at a time.</em>
+        </p>
+
+        <p class="li-hero-bio">
+          Neural amp modelling, hand-tuned presets, and a relentless ear for feel.
+          Built for how an amp behaves under your fingers, not how it measures on a bench.
+        </p>
+      </div>
+
+      <!-- decorative faceplate: the thing the tagline is talking about -->
+      <div class="li-panel" aria-hidden="true">
+        <div class="li-knobs">
+          <div class="li-knob">
+            <div class="li-dial" style="--a: 45deg"></div>
+            <p class="li-knob-label">Gain</p>
+          </div>
+          <div class="li-knob">
+            <div class="li-dial" style="--a: 0deg"></div>
+            <p class="li-knob-label">Bass</p>
+          </div>
+          <div class="li-knob">
+            <div class="li-dial" style="--a: 30deg"></div>
+            <p class="li-knob-label">Mid</p>
+          </div>
+          <div class="li-knob">
+            <div class="li-dial" style="--a: 45deg"></div>
+            <p class="li-knob-label">Treble</p>
+          </div>
+          <div class="li-knob">
+            <div class="li-dial" style="--a: 15deg"></div>
+            <p class="li-knob-label">Presence</p>
+          </div>
+          <div class="li-knob">
+            <div class="li-dial" style="--a: -30deg"></div>
+            <p class="li-knob-label">Master</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============ SIGNAL CHAIN ============
+       Ordered because the product is ordered: this is the real default
+       chain, and every block can be reordered in the FLOW tab. -->
+  <section class="li-chain" aria-labelledby="li-chain-h">
+    <div class="li-unit li-chain-inner">
+      <p class="li-legend" id="li-chain-h">Default signal path &middot; fully reorderable</p>
+      <ol class="li-chain-list">
+        <li><span class="li-chain-node">Gate</span></li>
+        <li><span class="li-chain-node">Comp</span></li>
+        <li><span class="li-chain-node">Drive</span></li>
+        <li data-node="amp"><span class="li-chain-node">Amp</span></li>
+        <li><span class="li-chain-node">Cab</span></li>
+        <li><span class="li-chain-node">Mod</span></li>
+        <li><span class="li-chain-node">Delay</span></li>
+        <li><span class="li-chain-node">Reverb</span></li>
+        <li><span class="li-chain-node">EQ</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT PLATE ============ -->
+  <section class="li-product" aria-labelledby="li-prod-h">
+    <div class="li-unit">
+      <a class="li-plate" href="https://langfordindustries.gumroad.com/l/vfsbry">
+        <img class="li-plate-shot"
+             src="https://public-files.gumroad.com/0yo85hq9skupjhpyd65xc6qemgsc"
+             alt="The Mistress plugin window showing the FLOW tab with a reorderable signal chain">
+        <div class="li-plate-body">
+          <p class="li-legend">Out now &middot; AU &amp; VST3 &middot; macOS</p>
+          <div class="li-plate-head">
+            <h2 class="li-plate-name" id="li-prod-h">The Mistress</h2>
+            <span class="li-price">&pound;39</span>
+          </div>
+          <p class="li-body">
+            A neural guitar amp and multi-FX plugin &mdash; four amp voices, a full
+            reorderable pedalboard, delay, reverb and a 10-band EQ. A studio rig in
+            one window.
+          </p>
+          <span class="li-cta">
+            View the product
+            <span class="li-cta-arrow" aria-hidden="true">&rarr;</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ VOICES ============ -->
+  <section class="li-voices" aria-labelledby="li-voices-h">
+    <div class="li-unit li-voices-inner">
+      <p class="li-legend" id="li-voices-h">Four amp voices &middot; neural-captured from real hardware</p>
+      <ul class="li-voice-grid">
+        <li class="li-voice">
+          <p class="li-voice-name">Clean</p>
+          <p class="li-voice-src">Based on a Fender Deluxe</p>
+          <p>Glassy, headroom-rich cleans that stay open when you dig in.</p>
+        </li>
+        <li class="li-voice">
+          <p class="li-voice-name">Rhythm</p>
+          <p class="li-voice-src">Based on a Victory Kraken</p>
+          <p>Tight, modern high-gain with a fast, percussive low end.</p>
+        </li>
+        <li class="li-voice">
+          <p class="li-voice-name">Lead</p>
+          <p class="li-voice-src">Based on an EVH 5150</p>
+          <p>Singing, saturated leads with sustain for days.</p>
+        </li>
+        <li class="li-voice">
+          <p class="li-voice-name">Blend</p>
+          <p class="li-voice-src">Rhythm + Lead, mixed</p>
+          <p>Both high-gain voices layered into one wider, thicker tone.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ SPECS ============ -->
+  <section class="li-specs" aria-labelledby="li-specs-h">
+    <div class="li-unit li-specs-inner">
+      <p class="li-legend" id="li-specs-h">Inside the box</p>
+      <dl class="li-spec-grid">
+        <div class="li-spec">
+          <dt>Pedalboard</dt>
+          <dd>Six swappable slots &mdash; compressor, octave, overdrive, fuzz,
+              distortion, chorus, vibrato. Drag any pedal into any slot.</dd>
+        </div>
+        <div class="li-spec">
+          <dt>Time &amp; tone</dt>
+          <dd>Stereo delay switchable pre- or post-amp, reverb, 10-band graphic EQ,
+              noise gate and doubler.</dd>
+        </div>
+        <div class="li-spec">
+          <dt>Your own captures</dt>
+          <dd>Load any NAM (.nam) or GuitarML (.json) model and your own impulse
+              responses. The tone library is unlimited.</dd>
+        </div>
+        <div class="li-spec">
+          <dt>For players</dt>
+          <dd>Built-in tuner, input and output trim, instant preset save and recall.
+              Plug in and play, don&rsquo;t configure.</dd>
+        </div>
+        <div class="li-spec">
+          <dt>Formats</dt>
+          <dd>AU and VST3 on macOS (Apple Silicon). Logic, Ableton Live, Reaper,
+              GarageBand and any AU/VST3 host. Windows to follow.</dd>
+        </div>
+        <div class="li-spec">
+          <dt>Hear it</dt>
+          <dd>No talking, just tones &mdash; rhythm, lead and cleans on real riffs in
+              the full walkthrough.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="li-gallery" aria-labelledby="li-gal-h">
+    <div class="li-unit li-gallery-inner">
+      <p class="li-legend" id="li-gal-h">The rig</p>
+      <ul class="li-shots">
+        <li>
+          <figure>
+            <img src="https://public-files.gumroad.com/ap1ccvx5fyxq0vxhoig4w9ahmuv1"
+                 alt="The Mistress amp tab, showing the four selectable amp voices">
+            <figcaption>Amp voices</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <img src="https://public-files.gumroad.com/7cr7funv1blm6yuu5cv9j85nynei"
+                 alt="The Mistress pedalboard with six swappable pedal slots">
+            <figcaption>The board</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <img src="https://public-files.gumroad.com/8xf8vjhvlrdnfe0t6frb0wh3t5fl"
+                 alt="The Mistress effects section in a contrasting amp skin">
+            <figcaption>Pedals &amp; skins</figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER PLATE ============ -->
+  <footer class="li-foot">
+    <div class="li-unit li-foot-inner">
+      <div class="li-foot-row">
+        <p class="li-legend">LangfordIndustries &middot; Brighton, UK</p>
+        <a class="li-foot-link" href="https://langfordindustries.gumroad.com/l/vfsbry">The Mistress &mdash; &pound;39</a>
+      </div>
+      <hr class="li-rule">
+      <p class="li-fineprint">
+        All product names, trademarks and registered trademarks are property of their
+        respective owners, and are used solely to describe the equipment that was
+        captured. The Mistress is not affiliated with, endorsed by, or sponsored by
+        Fender, Victory or EVH.
+      </p>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
