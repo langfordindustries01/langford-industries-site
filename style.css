@@ -75,6 +75,39 @@ body {
   outline: 2px solid #e63946;   /* brand red focus ring, keyboard nav only */
   outline-offset: 2px;          /* small gap between card and ring */
 }
+.price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 12px 0;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;  /* logo left, links right */
+  align-items: center;             /* vertically centred */
+  padding: 20px 40px;
+  background-color: #111111;
+  position: sticky;                /* stays pinned... */
+  top: 0;                          /* ...to the top when scrolling */
+  z-index: 10;                     /* sits above other content */
+}
+
+.nav-logo {
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 24px;
+}
+
+.nav-links a:hover {
+  color: #e63946;
+}
 .footer {
   background-color: #111111;
   text-align: center;
