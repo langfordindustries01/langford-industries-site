@@ -743,10 +743,26 @@
       transition: none !important;
     }
   }
+.li-back {
+  position: fixed;              /* stays put while the page scrolls */
+  top: 20px;
+  left: 20px;
+  z-index: 50;                  /* sits above the page content */
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;    /* matches the page's little labels */
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.65;                /* quiet by default... */
+  transition: opacity 0.2s ease;
+}
+.li-back:hover {
+  opacity: 1;                   /* ...brightens when you point at it */
+}
 </style>
 </head>
 <body>
-
+<a class="li-back" href="index.html">&larr; Langford Industries</a>
 <div class="li-root">
 
   <!-- ============ HERO / FACEPLATE ============ -->
